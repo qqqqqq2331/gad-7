@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>불안도 검사 (GAD-7)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>불안도 검사 (GAD-7)</h1>
+    <form id="gad7-form">
+        <div class="question">
+            <label>1. 최근 2주간, 다음과 같은 문제로 얼마나 자주 힘들었습니까?</label><br>
+            <p>1) 당신은 불안을 느꼈습니까?</p>
+            <label><input type="radio" name="q1" value="0"> 전혀 해당 없음</label>
+            <label><input type="radio" name="q1" value="1"> 며칠</label>
+            <label><input type="radio" name="q1" value="2"> 일주일 이상</label>
+            <label><input type="radio" name="q1" value="3"> 거의 매일</label>
+        </div>
+        
+        <div class="question">
+            <p>2) 당신은 통제가 불가능한 불안감을 느꼈습니까?</p>
+            <label><input type="radio" name="q2" value="0"> 전혀 해당 없음</label>
+            <label><input type="radio" name="q2" value="1"> 며칠</label>
+            <label><input type="radio" name="q2" value="2"> 일주일 이상</label>
+            <label><input type="radio" name="q2" value="3"> 거의 매일</label>
+        </div>
+
+        <div class="question">
+            <p>3) 당신은 불안으로 인해 집중하기 어려웠습니까?</p>
+            <label><input type="radio" name="q3" value="0"> 전혀 해당 없음</label>
+            <label><input type="radio" name="q3" value="1"> 며칠</label>
+            <label><input type="radio" name="q3" value="2"> 일주일 이상</label>
+            <label><input type="radio" name="q3" value="3"> 거의 매일</label>
+        </div>
+
+        <div class="question">
+            <p>4) 당신은 불안으로 인해 불안한 기분이 드는 경우가 많았습니까?</p>
+            <label><input type="radio" name="q4" value="0"> 전혀 해당 없음</label>
+            <label><input type="radio" name="q4" value="1"> 며칠</label>
+            <label><input type="radio" name="q4" value="2"> 일주일 이상</label>
+            <label><input type="radio" name="q4" value="3"> 거의 매일</label>
+        </div>
+
+        <div class="question">
+            <p>5) 당신은 과민해졌습니까?</p>
+            <label><input type="radio" name="q5" value="0"> 전혀 해당 없음</label>
+            <label><input type="radio" name="q5" value="1"> 며칠</label>
+            <label><input type="radio" name="q5" value="2"> 일주일 이상</label>
+            <label><input type="radio" name="q5" value="3"> 거의 매일</label>
+        </div>
+
+        <div class="question">
+            <p>6) 당신은 불안으로 인해 몸이 긴장했습니까?</p>
+            <label><input type="radio" name="q6" value="0"> 전혀 해당 없음</label>
+            <label><input type="radio" name="q6" value="1"> 며칠</label>
+            <label><input type="radio" name="q6" value="2"> 일주일 이상</label>
+            <label><input type="radio" name="q6" value="3"> 거의 매일</label>
+        </div>
+
+        <div class="question">
+            <p>7) 당신은 불안으로 인해 쉽게 지치거나 피로감을 느꼈습니까?</p>
+            <label><input type="radio" name="q7" value="0"> 전혀 해당 없음</label>
+            <label><input type="radio" name="q7" value="1"> 며칠</label>
+            <label><input type="radio" name="q7" value="2"> 일주일 이상</label>
+            <label><input type="radio" name="q7" value="3"> 거의 매일</label>
+        </div>
+
+        <div class="question">
+            <p>8) 당신은 불안으로 인해 신체적인 증상을 느꼈습니까? (예: 두통, 메스꺼움 등)</p>
+            <label><input type="radio" name="q8" value="0"> 전혀 해당 없음</label>
+            <label><input type="radio" name="q8" value="1"> 며칠</label>
+            <label><input type="radio" name="q8" value="2"> 일주일 이상</label>
+            <label><input type="radio" name="q8" value="3"> 거의 매일</label>
+        </div>
+
+        <div class="question">
+            <p>9) 당신은 불안감으로 인해 불면증이 있었습니까?</p>
+            <label><input type="radio" name="q9" value="0"> 전혀 해당 없음</label>
+            <label><input type="radio" name="q9" value="1"> 며칠</label>
+            <label><input type="radio" name="q9" value="2"> 일주일 이상</label>
+            <label><input type="radio" name="q9" value="3"> 거의 매일</label>
+        </div>
+
+        <button type="submit">결과 보기</button>
+    </form>
+
+    <script>
+        document.getElementById('gad7-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let totalScore = 0;
+            for (let i = 1; i <= 9; i++) {
+                const response = document.querySelector(`input[name="q${i}"]:checked`);
+                if (response) {
+                    totalScore += parseInt(response.value);
+                }
+            }
+
+            let resultMessage;
+            if (totalScore < 5) {
+                resultMessage = "불안 수준이 낮습니다.";
+            } else if (totalScore < 10) {
+                resultMessage = "불안 수준이 중간입니다.";
+            } else {
+                resultMessage = "불안 수준이 높습니다.";
+            }
+
+            alert(`총 점수: ${totalScore}\n결과: ${resultMessage}`);
+        });
+    </script>
+</body>
+</html>
